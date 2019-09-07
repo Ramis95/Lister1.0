@@ -3,10 +3,7 @@
     <p style="text-align: center">Всем привет! С вами <?=$title?></p>
 
 
-
-
     <?
-
         if($users)
         {
             ?>
