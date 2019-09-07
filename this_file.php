@@ -7,3 +7,6 @@
  */
 
 echo 'qwe123123123weq';
+
+
+echo 'com2';
