@@ -3,8 +3,7 @@
  * Created by PhpStorm.
  * User: irami
  * Date: 07.09.2019
- * Time: 13:42
+ * Time: 17:32
  */
 
-
-echo 'winner';
+echo 'qwe123';
