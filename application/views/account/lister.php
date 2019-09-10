@@ -1,13 +1,12 @@
 
 <div class="container">
-    <p style="text-align: center">Всем привет! С вами <?=$title?></p>
-
+    <p style="text-align: center"><?=$text['header']?></p>
 
     <?
         if($users)
         {
             ?>
-            <p style="text-align: center"><b>Пользователи</b></p>
+            <p style="text-align: center"><b><?=$text['list_name']?></b></p>
 
             <div class="row">
                     <?

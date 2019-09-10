@@ -24,15 +24,21 @@
 
         <div class="header">
 
+            <pre>
+                <?vd($config);?>
+            </pre>
+
             <div class="container">
                 <div class="row">
                     <?if(isset($user['id'])){?>
                         <div class="our_button">
-                            <button class="btn btn-primary log_out">Выход</button>
+                            <button class="btn btn-primary log_out"><?=$text['logout']?></button>
                         </div>
                     <?}else{?>
-                        <a class="btn btn-info" href="/account/login">Войти</a>
+                        <a class="btn btn-info" href="/account/login"><?=$text['login']?></a>
                     <?}?>
+
+
                 </div>
             </div>
 

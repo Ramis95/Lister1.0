@@ -15,7 +15,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="form-control btn-primary">Отправить</button>
+                    <button type="submit" class="form-control btn-primary"><?=$text['login']?></button>
                 </div>
 
             </form>

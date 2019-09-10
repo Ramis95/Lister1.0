@@ -12,13 +12,19 @@ abstract class Controller
     public $model;
 
     public $user; //Возможно переделать
+    public $config;
+    public $lang_text;
 
     public function __construct($route)
     {
-        $this->user = $_SESSION['account'];
 
+        $this->user = $_SESSION['account'];
+        $this->config = $this->get_config();
         $this->route = $route;
-        $this->view = new View($route, $this->user); //Создаем объект класса View, передаем параметры $route и $user
+
+        $this->lang_text = $this->get_lang_file();//Подключение языкового файла, возможно переделать
+
+        $this->view = new View($route, $this->user, $this->lang_text, $this->config); //Создаем объект класса View, передаем параметры $route, $lang и $user
         $this->check_acl(); //Проверяем, есть ли у данного пользователя доступ к старнице
         $this->model = $this->load_model($route['controller']);
 
@@ -62,6 +68,56 @@ abstract class Controller
         }
     }
 
+    public function get_config()
+    {
+        $configs = [                        //Дефолтные настройки
+                'lang' => 'en',             //Язык системы
+                'alert' => '0'              //Уведомления, вкл/выкл
+            ];
 
+        $_SESSION['config'] = $configs;
+
+        if($_SESSION['account'])
+        {
+            if($_SESSION['config']['lang'] == 'en')
+            {
+                $configs['lang'] = 'en';
+            }
+            else
+            {
+                $configs['lang'] = 'ru';
+            }
+        }
+        elseif (isset($_SESSION['config']))
+        {
+            $configs = [ //Дефолтные настройик
+                'lang' => $_SESSION['config']['lang'],      //Язык системы
+//                'alert' => '0'                            //Уведомления, вкл/выкл
+            ];
+        }
+
+        return $configs;
+
+    }
+
+    public function get_lang_file(){
+
+        $all_lang_arr = [];
+        $common_lang_file = '/application/language/' . $this->config['lang'] . '/common_lang_file.php';
+        $path = '/application/language/' . $this->config['lang'] . '/' . $this->route['controller'] . '.php';
+
+        if(isset($common_lang_file))
+        {
+            $all_lang_arr = include $common_lang_file;  //Общие элементы на сайте (кнопки, маски и т.д.)
+        }
+
+        if(isset($path))
+        {
+            $all_lang_arr = include $path;              //Языковые файлы которые относятся только к определенно контроллеру
+        }
+
+        return $all_lang_arr;
+
+    }
 
 }

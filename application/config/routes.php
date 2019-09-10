@@ -10,6 +10,17 @@ return
           'action' =>  'index'
         ],
 
+    'account/register' =>
+        [
+            'controller' => 'account',
+            'action' => 'register',
+            'acl' => [
+                'guest' => true,
+                'authorize' => false,
+                'admin' => false
+            ]
+        ],
+
     'account/login' =>
         [
             'controller' => 'account',

@@ -7,13 +7,17 @@ class View
 
     public $route;
     public $layout = 'default';
+    public $lang_text;
+    public $config;
 
     private $user;
 
-    public function __construct($route, $user)
+    public function __construct($route, $user, $lang_text, $config)
     {
         $this->route = $route;
         $this->user = $user;
+        $this->config = $config;
+        $this->lang_text = $lang_text;
         $this->path = $route['controller'] . '/' . $route['action'];
     }
 
@@ -33,6 +37,8 @@ class View
 
     public function render($title, $vars = [])
     {
+        $vars['text'] = $this->lang_text;
+        $vars['config'] = $this->config;
         extract($vars); //Достаем переменные из массива
         $template = 'application/views/' . $this->route['controller'] . '/' . $this->route['action'] . '.php';
 
