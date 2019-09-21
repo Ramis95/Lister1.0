@@ -14,9 +14,11 @@ abstract class Model
 {
 
     public $db;
+    public $lang_text;
 
-    public function __construct()
+    public function __construct($lang_text)
     {
+        $this->lang_text = $lang_text;
         $this->db = new Db();
     }
 

@@ -1,0 +1,10 @@
+.inputError
+{
+    border: 1px solid indianred;
+    color: indianred;
+}
+
+.errorText
+{
+    color: indianred;
+}

@@ -1,9 +1,20 @@
 $(document).ready(function() {
 
-    $('form').submit(function(event) {
+    $('.selectpicker').selectpicker();
+
+    $('.select_send_ajax').on('change', function() {
+        $(this.form).submit();
+    });
+
+    $('form').submit(function(event) { //Отправка всех форм
+
         if ($(this).attr('type') == 'no_ajax') {
             return;
         }
+
+        $('.errorText').remove();
+        $('input').removeClass('inputError');
+
         var json;
         event.preventDefault();
         $.ajax({
@@ -13,16 +24,30 @@ $(document).ready(function() {
             contentType: false,
             cache: false,
             processData: false,
-            success: function(result) {
+            success: function(result)
+            {
                 json = jQuery.parseJSON(result);
+
                 if (json.url) {
                     window.location.href = '/' + json.url;
                 } else {
-                    alert(json.status + ' - ' + json.message);
+                    message = json.message; //Получаем все сообщения об ошибках
+                    for (key in message) //Вывод ошибок в полях
+                    {
+                        this_input = $('[name='+ key +']');
+                        $(this_input).addClass('inputError');
+                        $(this_input).after('<p class="errorText">' + message[key] +'</p>');
+                    }
+
+
+                    // alert(json.status + ' - ' + json.message);
                 }
+
             },
         });
     });
+
+
 
     $('.log_out').on('click', function () {
 
@@ -43,5 +68,8 @@ $(document).ready(function() {
         });
 
     });
+
+
+
 
 });

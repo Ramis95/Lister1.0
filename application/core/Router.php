@@ -19,22 +19,24 @@ class Router
     public function run()
     {
         $path = 'application\controllers\\'.ucfirst($this->params['controller']).'Controller';
-        $action = $this->params['action'];
+        $action = $this->params['action'] . 'Action';
 
         if(class_exists($path))
         {
-            if(method_exists($path, $this->params['action']))
+            if(method_exists($path, $action))
             {
                 $controller = new $path($this->params);
                 $controller->$action();
             }
             else
             {
+                echo 'win1';
                 View::errorCode(404);
             }
         }
         else
         {
+            echo 'win2';
             View::errorCode(404);
         }
     }

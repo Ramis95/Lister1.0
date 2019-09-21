@@ -15,6 +15,8 @@ abstract class Controller
     public $config;
     public $lang_text;
 
+//    public $error = []; хз зачем здесь это, нужно проверить
+
     public function __construct($route)
     {
 
@@ -26,7 +28,7 @@ abstract class Controller
 
         $this->view = new View($route, $this->user, $this->lang_text, $this->config); //Создаем объект класса View, передаем параметры $route, $lang и $user
         $this->check_acl(); //Проверяем, есть ли у данного пользователя доступ к старнице
-        $this->model = $this->load_model($route['controller']);
+        $this->model = $this->load_model($route['controller'], $this->lang_text);
 
     }
 
@@ -54,17 +56,17 @@ abstract class Controller
         }
     }
 
-    public function load_model($controller)
+    public function load_model($controller, $lang_text)
     {
         $path = 'application\models\\' . ucfirst($controller);
 
         if (class_exists($path))
         {
-            return new $path();
+            return new $path($lang_text);
         }
         else
         {
-            View::errorCode(404);
+//            View::errorCode(404); // Пока закомментировал, может это вообще не нужно
         }
     }
 
@@ -75,10 +77,10 @@ abstract class Controller
                 'alert' => '0'              //Уведомления, вкл/выкл
             ];
 
-        $_SESSION['config'] = $configs;
 
         if($_SESSION['account'])
         {
+            //Брать из базы и сохранить в сессии
             if($_SESSION['config']['lang'] == 'en')
             {
                 $configs['lang'] = 'en';
@@ -103,15 +105,15 @@ abstract class Controller
     public function get_lang_file(){
 
         $all_lang_arr = [];
-        $common_lang_file = '/application/language/' . $this->config['lang'] . '/common_lang_file.php';
-        $path = '/application/language/' . $this->config['lang'] . '/' . $this->route['controller'] . '.php';
+        $common_lang_file = $_SERVER['DOCUMENT_ROOT'] . '/application/language/' . $this->config['lang'] . '/common_lang_file.php';
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/application/language/' . $this->config['lang'] . '/' . $this->route['controller'] . '.php';
 
-        if(isset($common_lang_file))
+        if(file_exists($common_lang_file))
         {
             $all_lang_arr = include $common_lang_file;  //Общие элементы на сайте (кнопки, маски и т.д.)
         }
 
-        if(isset($path))
+        if(file_exists($path))
         {
             $all_lang_arr = include $path;              //Языковые файлы которые относятся только к определенно контроллеру
         }

@@ -14,7 +14,7 @@
                     foreach ($users as $key => $value)
                     {?>
                             <div class="col-sm-4"><?=$value['id']?></div>
-                            <div class="col-sm-8"><?=$value['name']?></div>
+                            <div class="col-sm-8"><?=$value['first_name'] . ' ' . $value['last_name']?></div>
                     <?}?>
                 </div>
         <?}

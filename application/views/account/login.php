@@ -5,8 +5,11 @@
 
         </div>
 
-        <div class="col-sm-6">
+        <span class="col-sm-6">
             <form action="/account/login" method="POST" type="ajax" class="" style="margin-top: 50px">
+
+                <input type="hidden" name="not_found">
+
                 <div class="control-group form-group">
                     <input class="form-control" name="login" placeholder="login">
                 </div>

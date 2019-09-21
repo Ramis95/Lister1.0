@@ -52,7 +52,21 @@ return
                 'authorize' => true,
                 'admin' => true
             ]
-        ]
+        ],
+
+    'config/lang' =>
+        [
+            'controller' => 'config',
+            'action' => 'choose_lang',
+            'acl' => [
+                'guest' => true,
+                'authorize' => true,
+                'admin' => true
+            ]
+        ],
+
+
+
 
 ];
 

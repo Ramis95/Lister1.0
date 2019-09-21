@@ -6,7 +6,6 @@
  * Time: 22:43
  */
 
-
 include 'application/lib/dev.php';
 
 use application\core\Router;
