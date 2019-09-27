@@ -27,7 +27,7 @@ class AccountController extends Controller
                 $this->view->message('error', $this->model->error);
             }
 
-            $user_data = $this->model->login($_POST['login']);
+            $user_data = $this->model->login($_POST['login'], $_POST['password']);
 
             if($user_data)
             {
@@ -54,8 +54,7 @@ class AccountController extends Controller
     {
         if (!empty($_POST)) {
 
-//            if (!$this->model->validate(['last_name', 'first_name', 'login', 'password'], $_POST)) {
-            if (!$this->model->validate(['first_name', 'last_name', 'login_repeat', 'mail', 'login', 'password'], $_POST)) {
+            if (!$this->model->validate(['first_name', 'last_name', 'login_repeat', 'email', 'login', 'password'], $_POST)) {
                 $this->view->message('error', $this->model->error);
             }
 

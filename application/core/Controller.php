@@ -73,10 +73,9 @@ abstract class Controller
     public function get_config()
     {
         $configs = [                        //Дефолтные настройки
-                'lang' => 'en',             //Язык системы
+                'lang' => 'ru',             //Язык системы
                 'alert' => '0'              //Уведомления, вкл/выкл
             ];
-
 
         if($_SESSION['account'])
         {

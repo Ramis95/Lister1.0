@@ -8,21 +8,36 @@
 
 include 'application/lib/dev.php';
 
+
 use application\core\Router;
+//use application\cron\Parser;
 
-spl_autoload_register(function($class) {
-    $path = str_replace('\\', '/', $class.'.php');
 
-    if (file_exists($path)) {
-        require $path;
-    }
-});
+if(strpos($_SERVER['REQUEST_URI'], 'cron') !== false) { // Временно
 
-session_start();
 
-$router = new Router();
-$router->run();
 
+    $url_arr = explode('/', $_SERVER['REQUEST_URI']);
+
+    $object = new application\cron\Parser();
+    $object->$url_arr[1]();
+
+}
+else
+{
+    spl_autoload_register(function ($class) {
+        $path = str_replace('\\', '/', $class . '.php');
+
+        if (file_exists($path)) {
+            require $path;
+        }
+    });
+
+    session_start();
+
+    $router = new Router();
+    $router->run();
+}
 
 
 

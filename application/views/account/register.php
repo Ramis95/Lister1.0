@@ -21,6 +21,10 @@
                 </div>
 
                 <div class="control-group form-group">
+                    <input class="form-control" name="email" placeholder="<?=$text['placeholder_email']?>">
+                </div>
+
+                <div class="control-group form-group">
                     <input class="form-control" name="password" placeholder="<?=$text['password']?>">
                 </div>
 
