@@ -39,6 +39,7 @@ class View
     {
         $vars['text'] = $this->lang_text;
         $vars['config'] = $this->config;
+
         extract($vars); //Достаем переменные из массива
         $template = 'application/views/' . $this->route['controller'] . '/' . $this->route['action'] . '.php';
 

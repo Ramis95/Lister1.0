@@ -116,7 +116,12 @@ class Account extends Model
 
     }
 
+    public function get_all_news()
+    {
+        $news = $this->db->getAll("SELECT `id`, `title`, `link`, `description`, `img`, `source`, `parse_type`,  `category`, `pubDate` FROM ?n", 'news'); //Добавить проверку на содержание на странице
 
+        return $news;
+    }
 
 
 }

@@ -3,18 +3,21 @@
     <p style="text-align: center"><?=$text['header']?></p>
 
     <?
-        if($users)
+        if($news)
         {
             ?>
-            <p style="text-align: center"><b><?=$text['list_name']?></b></p>
+            <p style="text-align: center"><b><?=$text['pg_title']?></b></p>
 
             <div class="row">
-                    <?
+
+                <?
+
                     $i = 0;
-                    foreach ($users as $key => $value)
+                    foreach ($news as $key => $value)
                     {?>
-                            <div class="col-sm-4"><?=$value['id']?></div>
-                            <div class="col-sm-8"><?=$value['first_name'] . ' ' . $value['last_name']?></div>
+                            <div class="col-sm-3">Название: <?=$value['title']?></div>
+                            <div class="col-sm-8"><?=$value['description']?></div>
+                            <div class="col-sm-1">Дата: <?=$value['pubDate']?></div>
                     <?}?>
                 </div>
         <?}

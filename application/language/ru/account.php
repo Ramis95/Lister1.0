@@ -1,7 +1,7 @@
 <?php
 
-$text['header'] = 'Всем привет! С вами Что-то';
-$text['list_name'] = 'Пользователи';
+$text['header'] = 'Ваша новостная лента';
+$text['pg_title'] = 'Все новости';
 $text['login'] = 'Войти';
 $text['logout'] = 'Выйти';
 $text['first_name'] = 'Имя';
