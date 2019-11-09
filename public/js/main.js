@@ -47,8 +47,6 @@ $(document).ready(function() {
         });
     });
 
-
-
     $('.log_out').on('click', function () {
 
         $.ajax({

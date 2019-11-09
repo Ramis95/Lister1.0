@@ -19,82 +19,106 @@ class Parser
     public function parse_rss($link = false)
     {
 
-        // Брать источники из бд
-        $xml = $this->get_xml('https://www.mk.ru/rss/economics/index.xml');
+        //Возможно переделать
 
-        $channel = $xml->channel;
-        $chanel_array = (array)$channel;
+        $all_rss_link = $this->db->getAll("SELECT id, link, source_id, date FROM ?n", 'rss_links');
 
-        $title = '';
-        $link = '';
-        $description = '';
-        $img = '';
-        $source = 1; //Получаем из бд
-        $parse_type = 1; //Получаем из бд
-        $category = '';
-        $pubDate = '';
+        if (!empty($all_rss_link)) {
 
+            foreach ($all_rss_link as $rss_source) {
 
-        foreach ($chanel_array['item'] as $key => $value) {
-            $chanel_value = (array)$value;
+                $xml = $this->get_xml($rss_source['link']);
+//                $xml = $this->get_xml('https://www.mk.ru/rss/economics/index.xml');
 
-            if (isset($chanel_value['title'])) {
-                $title = $chanel_value['title'];
-            }
+                $channel = $xml->channel;
+                $chanel_array = (array)$channel;
 
-            if (isset($chanel_value['pubDate'])) {
-                $pubDate = strtotime($chanel_value['pubDate']);
-            }
+                $title = '';
+                $link = '';
+                $description = '';
+                $img = '';
+                $source = $rss_source['source_id']; //Получаем из бд
+                $parse_type = 1; //Получаем из бд
+                $category = $rss_source['category'];
+                $pubDate = '';
 
-            if ($title != '' && $pubDate != '')
-            {
+                foreach ($chanel_array['item'] as $key => $value) {
+                    $chanel_value = (array)$value;
 
-                $unique = $this->news_unique_check($title, $source, $pubDate); //Проверка на уникальность в бд
-
-                if ($unique)
-                {
-
-                    if (isset($chanel_value['link'])) {
-                        $link = $chanel_value['link'];
+                    if (isset($chanel_value['title'])) {
+                        $title = $chanel_value['title'];
                     }
 
-                    if (isset($chanel_value['description'])) {
-                        $description = $chanel_value['description'];
+                    if (isset($chanel_value['pubDate'])) {
+                        $pubDate = strtotime($chanel_value['pubDate']);
                     }
 
-                    if (isset($chanel_value['enclosure'])) {
+                    if ($title != '' && $pubDate != '') {
 
-                        $img_arr = (array)$chanel_value['enclosure']['url'];
-                        $img =  (string)$img_arr[0];
+                        $unique = $this->news_unique_check($title, $source, $pubDate); //Проверка на уникальность в бд
 
-                    }
+                        if ($unique) {
 
-                    if(isset($chanel_value['category']))
-                    {
-                        if(isset($this->category_arr[$chanel_value['category']])) {
-                            $category = $this->category_arr[$chanel_value['category']];
+                            if (isset($chanel_value['link'])) {
+                                $link = $chanel_value['link'];
+                            }
+
+                            if (isset($chanel_value['description'])) {
+                                $description = $chanel_value['description'];
+                            }
+
+                            if (isset($chanel_value['enclosure'])) {
+
+                                $img_arr = (array)$chanel_value['enclosure']['url'];
+                                $img = (string)$img_arr[0];
+
+                            }
+
+                            if (isset($chanel_value['category'])) {
+                                if (isset($this->category_arr[$chanel_value['category']])) {
+                                    $category = $this->category_arr[$chanel_value['category']];
+                                }
+//                                else {
+//                                    $category = 0;
+//                                }
+                            }
+                            //elseif()//Берем категория из бд
+                            //{
+                            //}
+                            else //Иначе получаем категория исходя из title и description
+                            {
+                                $category = $this->get_news_category($title, $description);
+                            }
+
+                            $this->db->query("INSERT INTO ?n (`title`, link, description, img, source, parse_type, category, `pubDate`) VALUES (?s, ?s, ?s, ?s, ?s, ?i, ?i,?s)", 'news', $title, $link, $description, $img, $source, $parse_type, $category, $pubDate);
+
                         }
-                        else
-                        {
-                            $category = 0;
-                        }
                     }
-                    //elseif()//Берем категория из бд
-                    //{
-                    //}
-                    else //Иначе получаем категория исходя из title и description
-                    {
-                          $category = $this->get_news_category($title, $description);
-                    }
-
-                    $this->db->query("INSERT INTO ?n (`title`, link, description, img, source, parse_type, category, `pubDate`) VALUES (?s, ?s, ?s, ?s, ?s, ?i, ?i,?s)", 'news', $title, $link, $description, $img, $source, $parse_type, $category, $pubDate);
-              
                 }
             }
+            //тут будет парсинг
         }
+    }
 
-        //тут будет парсинг
+    public function show_rss_parse()
+    {
+        $rss_array = [
+          'https://www.mk.ru/rss/economics/index.xml',
+          'https://lenta.ru/rss/news'
+        ];
 
+        foreach ($rss_array as $rss_value)
+        {
+            $xml = $this->get_xml($rss_value);
+            $channel = $xml->channel;
+            $chanel_array = (array)$channel;
+
+            foreach ($chanel_array['item'] as $key => $value)
+            {
+                vd(array($value));
+                break;
+            }
+        }
     }
 
     public function parse_rss_show()
@@ -106,8 +130,7 @@ class Parser
         $channel = $xml->channel;
         $chanel_array = (array)$channel;
 
-        foreach ($chanel_array['item'] as $value)
-        {
+        foreach ($chanel_array['item'] as $value) {
             $chanel_value = (array)$value;
             vd($chanel_value);
             die();
@@ -124,13 +147,12 @@ class Parser
         return 1;
     }
 
-    private function  get_category_db() //Переименовать, переделать т.к. делаю не на свежую голову
+    private function get_category_db() //Переименовать, переделать т.к. делаю не на свежую голову
     {
         $result = [];
         $query = $this->db->getAll("SELECT `id`, `name` FROM ?n ", 'categories');
 
-        foreach ($query as $key => $value)
-        {
+        foreach ($query as $key => $value) {
             $result[$value['name']] = $value['id'];
         }
 

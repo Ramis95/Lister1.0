@@ -13,10 +13,7 @@ class AccountController extends Controller
 
     public function listerAction()
     {
-//        $result['users'] = $this->model->show_who_winner();
-
         $result['news'] = $this->model->get_all_news();
-
         $this->view->render('Что-то', $result);
     }
 

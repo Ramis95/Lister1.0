@@ -7,7 +7,7 @@ function vd($str)
     echo '</pre>';
 }
 
-function str_valid($str)
+function str_valid($str)//Фильтрацие строки
 {
     return strip_tags(htmlspecialchars(addslashes($str)));
 }

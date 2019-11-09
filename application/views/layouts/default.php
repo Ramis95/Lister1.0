@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="/public/libs/css/bootstrap.css">
     <link rel="stylesheet" href="/public/libs/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/public/css/fonts/CeraPro/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="/public/css/main.css">
 
 
@@ -23,49 +24,56 @@
 <body>
 
 <main>
-    <div class="header">
 
-        <div class="container">
-            <div class="row">
-                <? if (isset($user['id'])) { ?>
-                    <div class="our_button">
-                        <button class="btn btn-primary log_out"><?= $text['logout'] ?></button>
+    <div class="">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="header">
+                        <? if (isset($user['id'])) { ?>
+                            <div class="our_button">
+                                <button class="btn btn-primary log_out"><?= $text['logout'] ?></button>
+                            </div>
+                        <? } else { ?>
+                            <a class="btn btn-info" href="/account/login"><?= $text['login'] ?></a>
+                            <a class="btn btn-warning" href="/account/register"><?= $text['register'] ?></a>
+                        <? } ?>
+
+                        <div class="choose_lang_block">
+
+                            <? $this_lang = $config['lang']; ?>
+
+                            <? $current_url = $this->route['controller'] . '/' . $this->route['action']; ?>
+
+                            <form action="/config/lang" method="POST" type="ajax" class="">
+                                <input type="hidden" name="current_url" value="<?= $current_url ?>">
+                                <select class="select_send_ajax selectpicker" name="new_lang">
+                                    <option <?= $this_lang == 'ru' ? 'selected disabled' : 'value="ru"' ?>>Руc</option>
+                                    <option <?= $this_lang == 'en' ? 'selected disabled' : 'value="en"' ?>>Eng</option>
+                                </select>
+                            </form>
+                        </div>
                     </div>
-                <? } else { ?>
-                    <a class="btn btn-info" href="/account/login"><?= $text['login']?></a>
-                    <a class="btn btn-warning" href="/account/register"><?= $text['register']?></a>
-                <? } ?>
+                </div>
+            </div>
 
-                <div class="choose_lang_block">
 
-                    <? $this_lang = $config['lang']; ?>
+            <div class="col-sm-9">
+                <div class="row">
+                    <?
+                    if (isset($content)) {
+                        echo $content; //Вывод основного контента на стр.
 
-                    <? $current_url = $this->route['controller'] .'/'. $this->route['action'];?>
+                    } else {
 
-                    <form action="/config/lang" method="POST" type="ajax" class="">
-                        <input type="hidden" name="current_url" value="<?=$current_url?>">
-                        <select class="select_send_ajax selectpicker" name="new_lang">
-                            <option <?= $this_lang == 'ru' ? 'selected disabled' : 'value="ru"' ?>>Руc</option>
-                            <option <?= $this_lang == 'en' ? 'selected disabled' : 'value="en"' ?>>Eng</option>
-                        </select>
-                    </form>
+                        echo 'Нет контента';
 
+                    } ?>
                 </div>
             </div>
         </div>
-
     </div>
 
-
-    <?
-    if (isset($content)) {
-        echo $content; //Вывод основного контента на стр.
-
-    } else {
-
-        echo 'Нет контента';
-
-    } ?>
 </main>
 
 <script src="/public/js/main.js"></script>
