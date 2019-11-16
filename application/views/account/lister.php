@@ -1,13 +1,11 @@
 
-<div class="container">
-    <p style="text-align: center"><?=$text['header']?></p>
+<div class="container-fluid">
+    <p style="text-align: center"></p>
 
     <?
         if($news)
         {
             ?>
-            <p style="text-align: center"><b><?=$text['pg_title']?></b></p>
-
             <div class="row">
 
                 <?

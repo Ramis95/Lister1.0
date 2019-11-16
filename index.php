@@ -6,6 +6,8 @@
  * Time: 22:43
  */
 
+
+
 include 'application/lib/dev.php';
 
 
@@ -43,7 +45,6 @@ else
 }
 
 
-echo 'Привет!';
 
 
 
