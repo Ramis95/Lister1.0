@@ -7,6 +7,9 @@ class Db
 
 
     public $host;
+
+    public $db_pages_list;
+
     private $user_name;
     private $pass;
     private $db_name;
@@ -106,6 +109,14 @@ class Db
     public function query()
     {
         return $this->rawQuery($this->prepareQuery(func_get_args()));
+    }
+
+    public function get_db_pages() //Моя функция
+    {
+        $result = [];
+        $result = $this->query("SELECT `url` FROM ?n", 'categories'); //Берем категории из бд
+        return $result;
+
     }
 
     /**

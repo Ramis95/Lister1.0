@@ -19,16 +19,22 @@ abstract class Controller
 
     public function __construct($route)
     {
-
         $this->user = $_SESSION['account'];
         $this->config = $this->get_config();
         $this->route = $route;
 
         $this->lang_text = $this->get_lang_file();//Подключение языкового файла, возможно переделать
 
+
+
         $this->view = new View($route, $this->user, $this->lang_text, $this->config); //Создаем объект класса View, передаем параметры $route, $lang и $user
+
         $this->check_acl(); //Проверяем, есть ли у данного пользователя доступ к старнице
         $this->model = $this->load_model($route['controller'], $this->lang_text);
+
+
+
+
 
     }
 
@@ -50,9 +56,14 @@ abstract class Controller
             }
         }
 
-        if(!$this->route['acl'][$user_role])
-        {
-            $this->view->redirect('');
+//        vd($this->route['acl']);
+//        vd($user_role);
+//        die();
+
+        if($this->route['acl']) {
+            if (!$this->route['acl'][$user_role]) {
+                $this->view->redirect('');
+            }
         }
     }
 
@@ -115,6 +126,8 @@ abstract class Controller
         if(file_exists($path))
         {
             $all_lang_arr = include $path;              //Языковые файлы которые относятся только к определенно контроллеру
+
+
         }
 
         return $all_lang_arr;

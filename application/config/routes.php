@@ -7,7 +7,7 @@ return
     '' =>
         [
           'controller' => 'main',
-          'action' =>  'index'
+          'action' =>  'home'
         ],
 
     'account/register' =>
@@ -64,8 +64,6 @@ return
                 'admin' => true
             ]
         ],
-
-
 
 
 ];

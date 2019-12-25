@@ -11,12 +11,6 @@ class AccountController extends Controller
         parent::__construct($route);
     }
 
-    public function listerAction()
-    {
-        $result['news'] = $this->model->get_all_news();
-        $this->view->render('Что-то', $result);
-    }
-
     public function loginAction()
     {
         if (!empty($_POST)) {
@@ -31,7 +25,7 @@ class AccountController extends Controller
             if($user_data)
             {
                 $_SESSION['account'] = $user_data;
-                $this->view->location('account/lister');
+                $this->view->location('');
             }
             else
             {
@@ -46,7 +40,7 @@ class AccountController extends Controller
 
     public function logoutAction() {
         unset($_SESSION['account']);
-        $this->view->location('/account/lister');
+        $this->view->location('');
     }
 
     public function registerAction()

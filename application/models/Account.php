@@ -12,12 +12,6 @@ use application\core\Model;
 
 class Account extends Model
 {
-    public function show_who_winner()
-    {
-        $user_list = $this->db->getAll("SELECT * FROM ?n",'users');
-
-        return $user_list;
-    }
 
     public function validate($input, $post) {
 
@@ -114,13 +108,6 @@ class Account extends Model
 
         $this->db->query("INSERT INTO ?n (first_name, last_name, login, email, password, avatar, last_log_in) VALUES (?s, ?s, ?s, ?s, ?s, ?s, ?s)", 'users', $first_name, $last_name, $login, $email, $password, $data['avatar'], time());
 
-    }
-
-    public function get_all_news()
-    {
-        $news = $this->db->getAll("SELECT `id`, `title`, `link`, `description`, `img`, `source`, `parse_type`,  `category`, `pubDate` FROM ?n", 'news'); //Добавить проверку на содержание на странице
-
-        return $news;
     }
 
 

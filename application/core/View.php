@@ -37,8 +37,10 @@ class View
 
     public function render($title, $vars = [])
     {
+
         $vars['text'] = $this->lang_text;
         $vars['config'] = $this->config;
+        $vars['category_list'] = Model::$category_list;
 
         extract($vars); //Достаем переменные из массива
         $template = 'application/views/' . $this->route['controller'] . '/' . $this->route['action'] . '.php';

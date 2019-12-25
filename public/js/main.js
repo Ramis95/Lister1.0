@@ -28,7 +28,7 @@ $(document).ready(function() {
             {
                 json = jQuery.parseJSON(result);
 
-                if (json.url) {
+                if (json.url != '' || json.url == '') {//Вроде работает, если что поменять
                     window.location.href = '/' + json.url;
                 } else {
                     message = json.message; //Получаем все сообщения об ошибках
@@ -57,8 +57,8 @@ $(document).ready(function() {
 
                 json = jQuery.parseJSON(result);
 
-                if (json.url) {
-                    window.location.href = json.url;
+                if (json.url != '' || json.url == '') {
+                    window.location.href = '/' + json.url;
                 } else {
                     alert(json.status + ' - ' + json.message);
                 }
@@ -67,7 +67,19 @@ $(document).ready(function() {
 
     });
 
+    $('a').on('click', function ()
+    {
+        if ($(this).attr('data-href') == 'false')
+        {
+            event.preventDefault();
+            var this_href;
+            this_href = $(this).attr('href');
+            window.location.href = this_href;
 
+            //Возможно переделать для history
+        }
+
+    });
 
 
 });

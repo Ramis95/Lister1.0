@@ -3,6 +3,7 @@
 namespace application\core;
 
 use application\core\View;
+use application\lib\Db;
 
 class Router
 {
@@ -18,6 +19,7 @@ class Router
 
     public function run()
     {
+
         $path = 'application\controllers\\'.ucfirst($this->params['controller']).'Controller';
         $action = $this->params['action'] . 'Action';
 
@@ -25,7 +27,13 @@ class Router
         {
             if(method_exists($path, $action))
             {
+
                 $controller = new $path($this->params);
+
+                if($this->params['controller'] == 'category')
+                {
+                    $controller->category = $this->params['category'];
+                }
                 $controller->$action();
             }
             else
@@ -54,6 +62,12 @@ class Router
     {
         $route_list = include 'application/config/routes.php';
 
+        //Сделать так чтобы если нет icl то делать всем доступ
+        //Возможно переделать. Если поиск страниц в бд будет работать долго, то лучше сделать кэш
+
+        $db_route_list = get_db_pages();
+        $route_list = array_merge($route_list, $db_route_list);
+
         foreach ($route_list as $key => $value)
         {
             if($key == $this->routes)
@@ -61,8 +75,16 @@ class Router
                 $this->params['controller'] = $value['controller'];
                 $this->params['action'] = $value['action'];
                 $this->params['acl'] = $value['acl'];
+
+                if($this->params['controller'] == 'category')
+                {
+                    $this->params['category'] = $value['category_id'];
+                }
+
             }
         }
+
+
     }
 
 

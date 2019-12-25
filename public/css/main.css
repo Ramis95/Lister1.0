@@ -2,6 +2,7 @@ body
 {
     font-family: 'Cera Pro';
     background: #FAFAFA;
+    min-height: 100vh;
 }
 
 .inputError
@@ -13,4 +14,270 @@ body
 .errorText
 {
     color: indianred;
+}
+
+
+.header
+{
+    width: 100%;
+}
+
+.header a
+{
+    width: 100%;
+}
+
+.choose_lang_block .select_send_ajax
+{
+    width: 100% !important;
+}
+
+.header_logo_block
+{
+    display: block;
+    background: white;
+    padding: 17px 0 10px 12px;
+    text-decoration: none !important;
+}
+
+.header_logo_block img
+{
+    height: 40px;
+    margin-left: 3px;
+}
+
+.top_site_name
+{
+    display: inline-block;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+}
+
+.top_site_name p
+{
+    display: inline-block;
+}
+
+.top_site_name p:first-child
+{
+    color: #3d3d3d;
+    font-weight: bold;
+}
+
+.top_site_name p:last-child
+{
+    color: #ef5823;
+    font-weight: bold;
+}
+
+.page_content_title
+{
+    height: 73.6px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3d3d3d;
+    padding: 22px 0;
+    margin-bottom: 0;
+    position: relative;
+}
+
+.page_content_title:first-letter
+{
+    /*color: #ef5823;*/
+    font-weight: bold;
+}
+
+.page_content_title:after
+{
+    position: absolute;
+    content: "";
+    left: -252px;
+    height: 1px;
+    width: calc(100% + 252px);
+    border-bottom: 1px solid #dadada54;
+    bottom: 0;
+}
+
+.page_content
+{
+    width: 100%;
+    border-left: 1px solid #dadada54;
+}
+
+.header_grey
+{
+    min-height: 100vh;
+    background: #bcbcbc85;
+}
+
+.header_button
+{
+    text-align: center;
+}
+
+.header_button a
+{
+    /* background: white; */
+    /* height: 30px; */
+    padding: 10px 10px;
+    margin-top: 0;
+    display: block;
+    /* width: 58px; */
+    /* font-size: 24px; */
+    border-radius: 0px;
+    /*box-shadow: 0px 0px 10px rgba(127, 127, 127, 0.8);*/
+    /*color: black;*/
+    text-align: center;
+}
+
+.header_button button
+{
+    border-radius: 0px;
+}
+
+.choose_lang_block .dropdown-menu.show
+{
+    top: -4px !important;
+    left: -6px !important;
+    border-radius: 0;
+}
+
+.top_news_list
+{
+    box-shadow: 0px 0px 20px 0px #9f9f9f2e;
+    background: white;
+    border-radius: 3px;
+}
+
+.top_news_list .title
+{
+    margin-bottom: 10px;
+    font-size: 14px;
+    background: #3d3d3d;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: white;
+    padding: 3px 10px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.top_news_list .title img
+{
+    height: 20px;
+    vertical-align: sub;
+    margin-right: 6px;
+}
+
+.top_news_list .list
+{
+    padding: 0 12px;
+    overflow: hidden;
+}
+
+.top_news_list .one_news
+{
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.top_news_list .one_news:last-child
+{
+    margin-bottom: 10px;
+}
+
+.top_news_list .one_news:after
+{
+    position: absolute;
+    content: "";
+    border-bottom: 1px solid #0000001f;
+    width: calc(100% - 10px);
+    height: 1px;
+    bottom: -7px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.top_news_list .one_news:last-child::after
+{
+    border: none !important;
+}
+
+.news_hide
+{
+    display: none;
+}
+
+.white_block
+{
+    box-shadow: 0px 0px 20px 0px #9f9f9f2e;
+    background: white;
+    border-radius: 3px;
+    margin-top: 30px;
+    padding: 10px 15px;
+}
+
+.news_date
+{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.one_news .news_date a img
+{
+    height: 9px;
+    margin-right: 5px;
+}
+
+.top_news_list .source_name
+{
+    color: grey;
+    opacity: 0.5;
+    line-height: 1;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.top_news_list .source_name:hover
+{
+    color: black;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.top_news_list .source_name img
+{
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    transition: all 0.3s;
+}
+
+.top_news_list .source_name:hover img
+{
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+    transition: all 0.3s;
+}
+
+.one_news .news_date .pub_date
+{
+    line-height: 1;
+    margin-bottom: 0;
+    margin-left: auto;
+    display: flex;
+    font-size: 12px;
+    color: #7f7f7f;
+    align-items: flex-end;
+}
+
+.news_name
+{
+    cursor: pointer;
+    margin-bottom: 7px;
+    padding: 0 3px;
+    background: #f4f4f4;
+    line-height: 20px;
+    font-size: 16px;
 }
