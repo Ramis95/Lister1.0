@@ -44,7 +44,6 @@ class Router
         }
         else
         {
-            echo 'win2';
             View::errorCode(404);
         }
     }

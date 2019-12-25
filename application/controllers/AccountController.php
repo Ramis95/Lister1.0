@@ -48,8 +48,10 @@ class AccountController extends Controller
         if (!empty($_POST)) {
 
             if (!$this->model->validate(['first_name', 'last_name', 'login_repeat', 'email', 'login', 'password'], $_POST)) {
+
                 $this->view->message('error', $this->model->error);
             }
+
 
             $this->model->registration($_POST);
             $user_data = $this->model->login($_POST['login'], $_POST['password']);
@@ -57,7 +59,7 @@ class AccountController extends Controller
             if($user_data)
             {
                 $_SESSION['account'] = $user_data;
-                $this->view->location('account/lister');
+                $this->view->location('account/register');
             }
             else
             {

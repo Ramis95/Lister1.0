@@ -75,7 +75,6 @@ class Account extends Model
             }
         }
 
-
         if(!empty($all_error))
         {
             $this->error = $all_error;

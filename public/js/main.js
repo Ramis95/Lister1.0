@@ -28,8 +28,11 @@ $(document).ready(function() {
             {
                 json = jQuery.parseJSON(result);
 
-                if (json.url != '' || json.url == '') {//Вроде работает, если что поменять
+                console.log(json.url);
+
+                if (json.url != undefined) {//Вроде работает, если что поменять
                     window.location.href = '/' + json.url;
+                    // console.log('ads');
                 } else {
                     message = json.message; //Получаем все сообщения об ошибках
                     for (key in message) //Вывод ошибок в полях
